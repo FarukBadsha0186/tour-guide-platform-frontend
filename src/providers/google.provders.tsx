@@ -1,0 +1,25 @@
+"use client"
+
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { Children, ReactNode } from "react";
+import QueryProvider from "./query.provider";
+
+export default function GoogleAuthProvider({children}: {children:ReactNode}) {
+
+    const clientId =process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+
+    if (!clientId){
+         return<>{Children}</>
+    }
+    return (
+        <GoogleOAuthProvider clientId={clientId}>
+        
+        <QueryProvider >
+            {children} 
+    
+        </QueryProvider>
+        </GoogleOAuthProvider>
+    )
+
+    
+}
