@@ -311,10 +311,10 @@ export default function PackageDetailPage({ params }: PageProps) {
           <BookingForm
             pkg={pkg}
             availableSlots={availableSlots}
-            onSuccess={() => {
-              setIsBookingOpen(false)
-              router.push("/tourist/bookings")
-            }}
+            // onSuccess={() => {
+            //   setIsBookingOpen(false)
+            //   router.push("/tourist/bookings")
+            // }}
             onCancel={() => setIsBookingOpen(false)}
           />
         </DialogContent>

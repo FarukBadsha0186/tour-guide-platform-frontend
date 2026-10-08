@@ -18,7 +18,8 @@ import RoleGuard from "@/components/auth/role.guard"
 export default function Header() {
   const routes = [
     { name: "Home", url: "/" },
-    { name: "About", url: "/about-us" },
+     { name: "Packages", url: "/packages" },
+      { name: "Guides", url: "/guides" },
   ]
 
 const dashboardRoute: Record<UserRole, string> = {
