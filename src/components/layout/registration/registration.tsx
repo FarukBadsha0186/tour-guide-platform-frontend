@@ -52,13 +52,14 @@ export default function RegistrationForm() {
 
 
     register(registrationData, {
-        onSuccess: () => {
+        onSuccess: (res: any) => {
           toast.success("Account created!", {
             description: "Please login to continue",
           })
         
           const params = new URLSearchParams({ email: registrationData.email });
-          router.push(`/register/verify-account?${params.toString()}`)
+         // router.push(`/register/verify-account?${params.toString()}`)
+         router.push(`/register/verify-account?email=${res.email}&role=TOURIST`)
         },
         onError: (err) => {
           toast.error("Registration failed", {

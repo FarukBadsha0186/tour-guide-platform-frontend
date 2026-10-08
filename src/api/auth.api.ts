@@ -42,3 +42,23 @@ export function getMe() {
 }) {
   return apiClient("auth/register/tourist", { method: "POST", body: payload })
 }
+
+
+export function userRegisterGuide(payload: {
+  name: string
+  email: string
+  password: string
+  guide?: {
+    licenseNumber?: string
+    yearsExperience?: number
+    languages?: string[]
+    baseLocation?: string
+    bio?: string
+    hourlyRate?: number | null
+  }
+}) {
+  return apiClient("auth/register/guide", {
+    method: "POST",
+    body: payload,
+  })
+}

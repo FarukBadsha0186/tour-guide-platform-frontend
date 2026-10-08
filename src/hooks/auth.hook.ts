@@ -1,4 +1,4 @@
-import { getMe, googleAuth, userLogin, userLogout, userRegisterTourist, userVerifyAccount, } from "@/api";
+import { getMe, googleAuth, userLogin, userLogout, userRegisterGuide, userRegisterTourist, userVerifyAccount, } from "@/api";
 import { Mutation, useMutation, useQueries, useQuery } from "@tanstack/react-query";
 
 
@@ -51,3 +51,6 @@ export function useGetMe() {
     
 }
 
+export function useRegisterGuide() {
+  return useMutation({ mutationFn: userRegisterGuide })
+}
