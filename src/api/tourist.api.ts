@@ -2,6 +2,8 @@ import apiClient from "@/lib/apiClient"
 import type {
   CreateBookingPayload,
   CreateReviewPayload,
+  InitializePaymentPayload,
+  InitializePaymentResponse,
   TouristApiResponse,
   TouristAvailability,
   TouristAvailabilityResponse,
@@ -11,6 +13,8 @@ import type {
   TouristPackagesResponse,
   TouristPayment,
   TouristPaymentsResponse,
+  TouristProfile,
+  UpdateTouristProfilePayload,
 } from "@/types/tourist.type"
 
 // ========================================
@@ -136,3 +140,30 @@ export function createReview(payload: CreateReviewPayload) {
     body: payload,
   })
 }
+
+
+export function getTouristProfile() {
+  return apiClient<TouristApiResponse<TouristProfile>>("tourist/profile", {
+    method: "GET",
+  })
+}
+
+export function updateTouristProfile(payload: UpdateTouristProfilePayload) {
+  return apiClient<TouristApiResponse<TouristProfile>>(
+    "tourist/profile/update",
+    {
+      method: "PATCH",
+      body: payload,
+    }
+  )
+}
+
+
+export function initializeBkashPayment(payload: InitializePaymentPayload) {
+  return apiClient<InitializePaymentResponse>("payments/bkash/initialize", {
+    method: "POST",
+    body: payload,
+  })
+}
+
+

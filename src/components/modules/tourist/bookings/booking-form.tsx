@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useState } from "react"
@@ -16,10 +17,13 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Spinner } from "@/components/ui/spinner"
 import { Calendar } from "lucide-react"
-import { useCreateBooking } from "@/hooks"
+import {
+  useCreateBooking,
+  useInitializePayment,
+  useGetMe,
+} from "@/hooks"
 import { cn } from "@/lib/utils"
 import type {
-  CreateBookingPayload,
   TouristAvailability,
   TouristPackage,
 } from "@/types/tourist.type"
@@ -27,19 +31,21 @@ import type {
 interface BookingFormProps {
   pkg: TouristPackage
   availableSlots: TouristAvailability[]
-  onSuccess: () => void
   onCancel: () => void
 }
 
 export function BookingForm({
   pkg,
   availableSlots,
-  onSuccess,
   onCancel,
 }: BookingFormProps) {
   const [selectedSlotId, setSelectedSlotId] = useState<string>("")
 
-  const { mutate: create, isPending } = useCreateBooking()
+  const { data: me } = useGetMe()
+  const userId = me?.data?.id
+
+  const { mutateAsync: createBooking } = useCreateBooking()
+  const { mutate: initPayment, isPending } = useInitializePayment()
 
   const selectedSlot = availableSlots.find((s) => s.id === selectedSlotId)
 
@@ -48,9 +54,14 @@ export function BookingForm({
       numberOfPeople: pkg.minGroupSize || 1,
       specialRequests: "",
     },
-    onSubmit: ({ value }) => {
+    onSubmit: async ({ value }) => {
       if (!selectedSlot) {
         toast.error("Please select a date")
+        return
+      }
+
+      if (!userId) {
+        toast.error("User not found. Please login again.")
         return
       }
 
@@ -64,26 +75,41 @@ export function BookingForm({
         return
       }
 
-      const payload: CreateBookingPayload = {
-        packageId: pkg.id,
-        tourDate: selectedSlot.date,
-        numberOfPeople: value.numberOfPeople,
-        specialRequests: value.specialRequests || undefined,
-      }
+      try {
+        // Step 1: Create booking
+        const bookingRes = await createBooking({
+          packageId: pkg.id,
+          tourDate: selectedSlot.date,
+          numberOfPeople: value.numberOfPeople,
+          specialRequests: value.specialRequests || undefined,
+        })
 
-      create(payload, {
-        onSuccess: () => {
-          toast.success("Booking created!", {
-            description: "Please complete payment to confirm your booking.",
-          })
-          onSuccess()
-        },
-        onError: (err) => {
-          toast.error("Booking failed", {
-            description: err.message || "Something went wrong",
-          })
-        },
-      })
+        // Step 2: Initialize payment
+        initPayment(
+          {
+            packageId: pkg.id,
+            userId,
+            numberOfPeople: value.numberOfPeople,
+            tourDate: selectedSlot.date,
+            specialRequests: value.specialRequests || undefined,
+          },
+          {
+            onSuccess: (paymentRes) => {
+              toast.success("Redirecting to bKash...")
+              window.location.href = paymentRes.data.bkashURL
+            },
+            onError: (err) => {
+              toast.error("Payment initialization failed", {
+                description: err.message || "Something went wrong",
+              })
+            },
+          }
+        )
+      } catch (err: any) {
+        toast.error("Booking failed", {
+          description: err.message || "Something went wrong",
+        })
+      }
     },
   })
 
@@ -203,7 +229,7 @@ export function BookingForm({
                 value={field.state.value}
                 onChange={(e) => field.handleChange(e.target.value)}
                 onBlur={field.handleBlur}
-                placeholder="Any dietary restrictions, accessibility needs, or preferences..."
+                placeholder="Any dietary restrictions, accessibility needs..."
                 rows={3}
               />
               <FieldDescription>Optional</FieldDescription>
@@ -242,13 +268,12 @@ export function BookingForm({
           </Button>
           <Button type="submit" disabled={isPending || !selectedSlot}>
             {isPending && <Spinner className="mr-2 h-4 w-4" />}
-            Confirm Booking
+            Proceed to Payment
           </Button>
         </div>
 
         <p className="text-xs text-muted-foreground text-center">
-          You'll be redirected to payment after booking. Payment must be
-          completed before the deadline.
+          You'll be redirected to bKash to complete payment.
         </p>
       </FieldGroup>
     </form>

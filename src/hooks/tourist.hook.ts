@@ -10,10 +10,16 @@ import {
   getTouristPackageById,
   getTouristPackages,
   getTouristPayments,
+  getTouristProfile,
+  initializeBkashPayment,
+  updateTouristProfile,
+       
 } from "@/api/tourist.api"
 import type {
   CreateBookingPayload,
   CreateReviewPayload,
+  InitializePaymentPayload,
+  UpdateTouristProfilePayload,
 } from "@/types/tourist.type"
 
 // ========================================
@@ -174,4 +180,35 @@ export function useTouristDashboard() {
     isError: bookings.isError,
     refetch: bookings.refetch,
   }
+}
+
+
+
+
+export function useTouristProfile() {
+  return useQuery({
+    queryKey: ["tourist", "profile"],
+    queryFn: getTouristProfile,
+  })
+}
+
+export function useUpdateTouristProfile() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (payload: UpdateTouristProfilePayload) =>  
+      updateTouristProfile(payload),
+    
+  })
+}
+
+
+export function useInitializePayment() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (payload: InitializePaymentPayload) =>
+      initializeBkashPayment(payload),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tourist", "bookings"] })
+    },
+  })
 }

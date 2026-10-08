@@ -272,3 +272,54 @@ export interface TouristPaymentsResponse {
     totalPages: number
   }
 }
+
+export interface UpdateTouristProfilePayload {
+  name?: string
+  contactNumber?: string
+  address?: string
+  nationality?: string
+  dateOfBirth?: string
+}
+
+
+export interface InitializePaymentPayload {
+  packageId: string
+  numberOfPeople: number
+  tourDate: string
+  specialRequests?: string
+}
+
+export interface InitializePaymentResponse {
+  success: boolean
+  message: string
+  data: {
+    success: boolean
+    paymentId: string
+    bkashURL: string
+    bookingReference: string
+    amount: number
+    transactionStatus: string
+  }
+}
+
+
+export interface InitializePaymentPayload {
+  packageId: string
+  userId: string
+  numberOfPeople: number
+  tourDate: string
+  specialRequests?: string
+}
+
+export interface InitializePaymentResponse {
+  success: boolean
+  message: string
+  data: {
+    success: boolean
+    paymentId: string
+    bkashURL: string
+    bookingReference: string
+    amount: number
+    transactionStatus: string
+  }
+}

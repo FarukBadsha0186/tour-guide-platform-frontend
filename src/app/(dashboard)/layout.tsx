@@ -5,7 +5,7 @@ export default function layout({children}:{children:ReactNode}) {
     
 
     return (
-        <AuthGuard>This is layout Guard{children}</AuthGuard>
+        <AuthGuard >This is layout Guard{children}</AuthGuard>
     )
     
 }
