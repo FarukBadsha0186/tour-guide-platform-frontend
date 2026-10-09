@@ -1,10 +1,4 @@
-// export default function Page() {
 
-//      return (
-//         <div>HOM PAGE</div>
-//      )
-    
-// }
 
 import { Hero } from "@/components/modules/public/home/hero"
 import { FeaturedPackages } from "@/components/modules/public/home/featured-packages"

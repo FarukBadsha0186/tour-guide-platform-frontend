@@ -1,6 +1,7 @@
-"use client"
 
-import { use, useState } from "react"
+"use client"
+import { useGetMe } from "@/hooks"
+import { use, useMemo, useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { format } from "date-fns"
@@ -17,8 +18,11 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import { useTouristPackage, useTouristAvailableSlots } from "@/hooks"
-
+import {
+  useSearchPublicPackages,
+  useTouristAvailableSlots,
+} from "@/hooks"
+import { BookingForm } from "@/components/modules/tourist/bookings/booking-form"
 import {
   Clock,
   Users,
@@ -30,21 +34,43 @@ import {
   ArrowLeft,
   BookOpen,
 } from "lucide-react"
-import { BookingForm } from "@/components/modules/tourist/bookings/booking-form"
+import { toast } from "sonner"
 
 interface PageProps {
   params: Promise<{ id: string }>
 }
 
 export default function PackageDetailPage({ params }: PageProps) {
+  const { data: me } = useGetMe()
+  const isLoggedIn = !!me?.data
   const router = useRouter()
   const { id } = use(params)
-
   const [isBookingOpen, setIsBookingOpen] = useState(false)
 
-  const { data, isLoading, isError } = useTouristPackage(id)
-  const pkg = data?.data
+  
+  const { data: packagesData, isLoading } = useSearchPublicPackages({
+    limit: 100,
+  })
 
+  
+   const handleBookNow = () => {
+  if (!isLoggedIn) {
+    toast.error("Please login to book", {
+      description: "You need to be logged in to book this tour.",
+    })
+    // redirect to login with return URL
+    router.push(`/login?redirect=/packages/${id}`)
+    return
+  }
+
+  setIsBookingOpen(true)
+}
+  const pkg = useMemo(
+    () => packagesData?.data?.find((p) => p.id === id),
+    [packagesData, id]
+  )
+
+  // Available slots
   const { data: availabilityData } = useTouristAvailableSlots({
     packageId: id,
     limit: 100,
@@ -60,7 +86,7 @@ export default function PackageDetailPage({ params }: PageProps) {
     )
   }
 
-  if (isError || !pkg) {
+  if (!pkg) {
     return (
       <div className="container mx-auto px-4 py-20 text-center">
         <p className="text-destructive font-medium">Package not found</p>
@@ -74,9 +100,10 @@ export default function PackageDetailPage({ params }: PageProps) {
     )
   }
 
+ 
+
   return (
     <div className="container mx-auto px-4 py-8">
-      {/* Back */}
       <Link
         href="/packages"
         className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-6"
@@ -88,7 +115,6 @@ export default function PackageDetailPage({ params }: PageProps) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Main Content */}
         <div className="lg:col-span-2 space-y-6">
-          {/* Title */}
           <div>
             <h1 className="text-3xl font-bold tracking-tight mb-3">
               {pkg.title}
@@ -98,7 +124,6 @@ export default function PackageDetailPage({ params }: PageProps) {
             </p>
           </div>
 
-          {/* Quick Stats */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <StatBox
               icon={<Clock className="h-4 w-4" />}
@@ -124,7 +149,6 @@ export default function PackageDetailPage({ params }: PageProps) {
 
           <Separator />
 
-          {/* Meeting Point */}
           {pkg.meetingPoint && (
             <div>
               <h3 className="font-semibold mb-3">Meeting Point</h3>
@@ -135,8 +159,7 @@ export default function PackageDetailPage({ params }: PageProps) {
             </div>
           )}
 
-          {/* Inclusions */}
-          {pkg.inclusions.length > 0 && (
+          {pkg.inclusions?.length > 0 && (
             <div>
               <h3 className="font-semibold mb-3">What's Included</h3>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -153,8 +176,7 @@ export default function PackageDetailPage({ params }: PageProps) {
             </div>
           )}
 
-          {/* Exclusions */}
-          {pkg.exclusions.length > 0 && (
+          {pkg.exclusions?.length > 0 && (
             <div>
               <h3 className="font-semibold mb-3">Not Included</h3>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -173,7 +195,6 @@ export default function PackageDetailPage({ params }: PageProps) {
 
           <Separator />
 
-          {/* Guide Profile */}
           <div>
             <h3 className="font-semibold mb-4">Your Guide</h3>
             <div className="rounded-lg border p-4">
@@ -195,46 +216,27 @@ export default function PackageDetailPage({ params }: PageProps) {
                   <div className="flex items-center gap-2 text-sm text-muted-foreground mt-1">
                     <Star className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
                     <span>
-                      {pkg.guide.rating.toFixed(1)} ({pkg.guide.totalReviews}{" "}
-                      reviews)
+                      {pkg.guide.rating.toFixed(1)} ({pkg.guide.totalReviews})
                     </span>
-                  </div>
-                  <div className="flex flex-wrap gap-3 text-xs text-muted-foreground mt-2">
-                    <span>🏆 {pkg.guide.yearsExperience} years exp</span>
-                    <span>📍 {pkg.guide.baseLocation || "—"}</span>
                   </div>
                 </div>
               </div>
-
-              {pkg.guide.languages.length > 0 && (
-                <div className="mt-4 pt-4 border-t">
-                  <p className="text-xs text-muted-foreground mb-2">
-                    Languages
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {pkg.guide.languages.map((lang) => (
-                      <Badge key={lang} variant="secondary">
-                        {lang}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         </div>
 
         {/* Sidebar */}
         <div className="lg:col-span-1">
-          <div className="sticky top-6 space-y-4">
-            {/* Price Card */}
+          <div className="sticky top-6">
             <Card>
               <CardHeader>
                 <CardTitle className="text-base">Booking</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <p className="text-sm text-muted-foreground">Price per person</p>
+                  <p className="text-sm text-muted-foreground">
+                    Price per person
+                  </p>
                   <p className="text-3xl font-bold text-emerald-600">
                     ৳ {pkg.pricePerPerson}
                   </p>
@@ -242,7 +244,6 @@ export default function PackageDetailPage({ params }: PageProps) {
 
                 <Separator />
 
-                {/* Available Dates Preview */}
                 <div>
                   <p className="text-sm font-medium mb-2 flex items-center gap-2">
                     <Calendar className="h-4 w-4" />
@@ -268,28 +269,24 @@ export default function PackageDetailPage({ params }: PageProps) {
                           </span>
                         </div>
                       ))}
-                      {availableSlots.length > 5 && (
-                        <p className="text-xs text-muted-foreground text-center">
-                          +{availableSlots.length - 5} more dates
-                        </p>
-                      )}
                     </div>
                   )}
                 </div>
-
                 <Button
-                  className="w-full"
-                  size="lg"
-                  onClick={() => setIsBookingOpen(true)}
-                  disabled={availableSlots.length === 0}
-                >
-                  <BookOpen className="mr-2 h-4 w-4" />
-                  Book Now
-                </Button>
+  className="w-full"
+  size="lg"
+  onClick={handleBookNow}
+  disabled={availableSlots.length === 0}
+>
+  <BookOpen className="mr-2 h-4 w-4" />
+  Book Now
+</Button>
+
+                
 
                 {availableSlots.length === 0 && (
                   <p className="text-xs text-muted-foreground text-center">
-                    No slots available for booking
+                    No slots available
                   </p>
                 )}
               </CardContent>
@@ -304,17 +301,13 @@ export default function PackageDetailPage({ params }: PageProps) {
           <DialogHeader>
             <DialogTitle>Book This Tour</DialogTitle>
             <DialogDescription>
-              Select a date and number of people to book this tour.
+              Select a date and number of people.
             </DialogDescription>
           </DialogHeader>
 
           <BookingForm
-            pkg={pkg}
-            availableSlots={availableSlots}
-            // onSuccess={() => {
-            //   setIsBookingOpen(false)
-            //   router.push("/tourist/bookings")
-            // }}
+            pkg={pkg as any}
+            availableSlots={availableSlots as any}
             onCancel={() => setIsBookingOpen(false)}
           />
         </DialogContent>
@@ -322,10 +315,6 @@ export default function PackageDetailPage({ params }: PageProps) {
     </div>
   )
 }
-
-// ========================================
-// HELPER
-// ========================================
 
 function StatBox({
   icon,
