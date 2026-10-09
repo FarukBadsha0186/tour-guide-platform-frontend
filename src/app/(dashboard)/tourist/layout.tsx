@@ -12,5 +12,6 @@ export default function TouristRootLayout({
 }) {
   return (
     <TouristLayout userRole="TOURIST">{children}</TouristLayout>
+    
   )
 }
