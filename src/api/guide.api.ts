@@ -27,12 +27,12 @@ export function getGuideProfile() {
   })
 }
 
-export function updateGuideProfile(payload: UpdateGuideProfilePayload) {
-  return apiClient<GuideApiResponse<GuideProfile>>("guide/profile/update", {
-    method: "PATCH",
-    body: payload,
-  })
-}
+// export function updateGuideProfile(payload: UpdateGuideProfilePayload) {
+//   return apiClient<GuideApiResponse<GuideProfile>>("guide/profile/update", {
+//     method: "PATCH",
+//     body: payload,
+//   })
+// }
 
 // ========================================
 // PACKAGES
@@ -188,4 +188,11 @@ export function deleteAvailabilitySlot(slotId: string) {
       method: "DELETE",
     }
   )
+}
+
+export function updateGuideProfile(formData: FormData) {
+  return apiClient<GuideApiResponse<GuideProfile>>("guide/profile/update", {
+    method: "PATCH",
+    body: formData,
+  })
 }

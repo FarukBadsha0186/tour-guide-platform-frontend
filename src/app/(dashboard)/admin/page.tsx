@@ -1,19 +1,4 @@
-// import AdminLayout from "@/components/layout/admin/admindashboad";
-// import TourisLayout from "@/components/layout/tourist/tourist.dashboard";
-// import { UserRole } from "@/types";
 
-// export default function AdminDashboard({role}:{role:UserRole}) {
-
-//      return( 
-
-      
-
-//         <div>Admin Page</div>
-
-        
-//      )
-    
-// }
 
 "use client"
 

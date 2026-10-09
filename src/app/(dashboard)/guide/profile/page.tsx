@@ -60,12 +60,30 @@ export default function GuideProfilePage() {
       <Card>
         <CardContent className="pt-6">
           {isEditing ? (
+            // <ProfileForm
+            //   profile={profile}
+            //   onCancel={() => setIsEditing(false)}
+            //   onSuccess={() => setIsEditing(false)}
+            // />
             <ProfileForm
-              profile={profile}
-              onCancel={() => setIsEditing(false)}
-              onSuccess={() => setIsEditing(false)}
-            />
-          ) : (
+        profile={profile}
+            onCancel={() => setIsEditing(false)}
+  //          onSuccess={async () => {
+  //      await refetch()
+  //   setIsEditing(false)
+  // }}
+  onSuccess={async () => {
+  console.log("✅ 3. handleSuccess called")
+  await refetch()
+  console.log("✅ 4. Refetch done")
+  setIsEditing(false)
+  console.log("✅ 5. isEditing set to false")
+}}
+/>
+          ) 
+          
+          
+          : (
             <ProfileView
               profile={profile}
               onEdit={() => setIsEditing(true)}

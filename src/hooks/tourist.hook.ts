@@ -13,6 +13,8 @@ import {
   getTouristProfile,
   initializeBkashPayment,
   updateTouristProfile,
+  
+
        
 } from "@/api/tourist.api"
 import type {
@@ -192,14 +194,8 @@ export function useTouristProfile() {
   })
 }
 
-export function useUpdateTouristProfile() {
-  const queryClient = useQueryClient()
-  return useMutation({
-    mutationFn: (payload: UpdateTouristProfilePayload) =>  
-      updateTouristProfile(payload),
-    
-  })
-}
+
+
 
 
 export function useInitializePayment() {
@@ -209,6 +205,19 @@ export function useInitializePayment() {
       initializeBkashPayment(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["tourist", "bookings"] })
+    },
+  })
+}
+
+
+export function useUpdateTouristProfile() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (payload: UpdateTouristProfilePayload) =>
+      updateTouristProfile(payload),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["tourist", "profile"] })
+      queryClient.invalidateQueries({ queryKey: ["user"] })
     },
   })
 }

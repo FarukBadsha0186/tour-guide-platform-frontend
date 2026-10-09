@@ -172,7 +172,7 @@ export function AvailabilityEditDialog({
                     disabled={(d) =>
                       d < new Date(new Date().setHours(0, 0, 0, 0))
                     }
-                    initialFocus
+                   
                   />
                 </PopoverContent>
               </Popover>

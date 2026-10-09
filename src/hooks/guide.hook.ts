@@ -36,16 +36,16 @@ export function useGuideProfile() {
   })
 }
 
-export function useUpdateGuideProfile() {
-  const queryClient = useQueryClient()
-  return useMutation({
-    mutationFn: (payload: UpdateGuideProfilePayload) =>
-      updateGuideProfile(payload),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["guide", "profile"] })
-    },
-  })
-}
+// export function useUpdateGuideProfile() {
+//   const queryClient = useQueryClient()
+//   return useMutation({
+//     mutationFn: (payload: UpdateGuideProfilePayload) =>
+//       updateGuideProfile(payload),
+//     onSuccess: () => {
+//       queryClient.invalidateQueries({ queryKey: ["guide", "profile"] })
+//     },
+//   })
+// }
 
 // ========================================
 // PACKAGES
@@ -270,6 +270,19 @@ export function useDeleteAvailabilitySlot() {
     mutationFn: (slotId: string) => deleteAvailabilitySlot(slotId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["guide", "availability"] })
+    },
+  })
+}
+
+
+export function useUpdateGuideProfile() {
+  const queryClient = useQueryClient()
+  return useMutation({
+    mutationFn: (formData: FormData) => updateGuideProfile(formData),
+    onSuccess: async (data) => {
+      queryClient.setQueryData(["guide", "profile"], data)
+      await queryClient.refetchQueries({ queryKey: ["guide", "profile"] })
+      queryClient.invalidateQueries({ queryKey: ["user"] })
     },
   })
 }
