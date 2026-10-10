@@ -11,6 +11,8 @@ import { useRouter } from "next/navigation"
 import { Compass } from "lucide-react"
 import { UserRole } from "@/types"
 import RoleGuard from "@/components/auth/role.guard"
+import { Badge } from "@/components/ui/badge"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 
 
@@ -131,14 +133,53 @@ const dashboardRoute: Record<UserRole, string> = {
             </>
           )}
 
+          
           {!isLoading && data && (
-            <Button
-              onClick={handleLogout}
-              className="rounded-md border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
-            >
-              Logout
-            </Button>
-          )}
+  <div className="flex items-center gap-3">
+    {/* Dashboard Link */}
+    {/* {data.data?.role && (
+      <Link
+        href={
+          data.data.role === "ADMIN"
+            ? "/admin"
+            : data.data.role === "GUIDE"
+              ? "/guide"
+              : "/tourist"
+        }
+        className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+      >
+        Dashboard
+      </Link>
+
+    )} */}
+
+    {/* User Avatar + Name */}
+    <div className="hidden sm:flex items-center gap-2">
+      <Avatar className="h-8 w-8">
+        <AvatarImage src={data.data?.imageUrl} alt={data.data?.name} />
+        <AvatarFallback className="text-xs">
+          {data.data?.name?.charAt(0)?.toUpperCase() || "U"}
+        </AvatarFallback>
+      </Avatar>
+      <span className="text-sm font-medium">
+        {data.data?.name || "User"}
+      </span>
+    </div>
+
+    {/* Role Badge */}
+    <Badge variant="outline" className="text-xs capitalize">
+      {data.data?.role?.toLowerCase()}
+    </Badge>
+
+    {/* Logout Button */}
+    <Button
+      onClick={handleLogout}
+      className="rounded-md border border-border bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+    >
+      Logout
+    </Button>
+  </div>
+)}
         </div>
       </div>
     </header>

@@ -13,17 +13,7 @@ export const loginValidation = z.object({
 
 
 
-// const TouristRegistrationZodSchema =z.object({
-// 	name :z.string().min(3,"Name must 3 characters long !!!").max(10),
-// 	email:z.email("Not email"),
-// 	password: z.string().min(8, "Password Must Minimum 8 Characters Long.")
-// 	.regex(/[a-z]/, "Password must contain atleast 1 Lowercase Letter"),
-// 	patient: z.object({
-// 		contactNumber: z.string().optional(),
-// 		age:z.string()
 
-// 	}).optional()
-// })
 
 export const touristRegistrationSchema = z.object({
   name: z

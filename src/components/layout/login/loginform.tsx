@@ -1,6 +1,4 @@
 
-
-
 "use client"
 
 import { useState } from "react"
@@ -47,6 +45,17 @@ export default function LoginForm() {
       onSubmit: loginValidation,
     },
     onSubmit: ({ value }) => {
+      // Zod validation manually
+      const validation = loginValidation.safeParse(value)
+      if (!validation.success) {
+        toast.add({
+          title: "Validation Error",
+          description: validation.error.issues[0].message,
+          type: "error",
+        })
+        return
+      }
+
       login(value, {
         onSuccess: (res: any) => {
           toast.add({
@@ -62,7 +71,10 @@ export default function LoginForm() {
         onError: (err: any) => {
           toast.add({
             title: "Login failed",
-            description: err.message || "Invalid credentials",
+            description:
+              err?.data?.message ||
+              err?.message ||
+              "Invalid credentials. Please try again.",
             type: "error",
           })
         },
@@ -98,10 +110,13 @@ export default function LoginForm() {
           const redirectPath = role ? dashboardRoute[role] : "/"
           router.push(redirectPath)
         },
-        onError: () => {
+        onError: (err: any) => {
           toast.add({
             title: "Google login failed",
-            description: "Something went wrong. Try again.",
+            description:
+              err?.data?.message ||
+              err?.message ||
+              "Something went wrong. Try again.",
             type: "error",
           })
         },
