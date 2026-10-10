@@ -66,23 +66,25 @@ A modern, full-featured tour booking platform built with **Next.js 16 (App Route
 ## 🔄 Complete User Flow
 
 Understanding how roles interact is key to this platform. Here's the end-to-end journey:
+```text
 ┌─────────────────────────────────────────────────────────────┐
-│ STEP 1: Guide Registers (with license, experience, bio) │
-
-│ ↓ │
-│ STEP 2: Admin Approves Guide (profile must be complete) │
-
-│ ↓ │
-│ STEP 3: Guide Creates Tour Package │
-│ ↓ │
-│ STEP 4: Admin Approves Package │
-│ ↓ │
-│ STEP 5: Guide Adds Availability Slots (dates + times) │
-│ ↓ │
-│ STEP 6: Tourist Browses & Books a Tour │
-│ ↓ │
-│ STEP 7: bKash Payment → CONFIRMED → COMPLETED → Review │
+│  STEP 1: Guide Registers (with license, experience, bio)    │
+│      ↓                                                       │
+│  STEP 2: Admin Approves Guide (profile must be complete)    │
+│      ↓                                                       │
+│  STEP 3: Guide Creates Tour Package                         │
+│      ↓                                                       │
+│  STEP 4: Admin Approves Package                             │
+│      ↓                                                       │
+│  STEP 5: Guide Adds Availability Slots (dates + times)      │
+│      ↓                                                       │
+│  STEP 6: Tourist Browses & Books a Tour                     │
+│      ↓                                                       │
+│  STEP 7: bKash Payment → CONFIRMED → COMPLETED → Review     │
 └─────────────────────────────────────────────────────────────┘
+```
+
+
 
 text
 
