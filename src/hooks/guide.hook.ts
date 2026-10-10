@@ -274,13 +274,18 @@ export function useDeleteAvailabilitySlot() {
   })
 }
 
-
 export function useUpdateGuideProfile() {
   const queryClient = useQueryClient()
   return useMutation({
-    mutationFn: (formData: FormData) => updateGuideProfile(formData),
-    onSuccess: async (data) => {
-      queryClient.setQueryData(["guide", "profile"], data)
+    mutationFn: (payload: {
+      licenseNumber?: string
+      yearsExperience?: number
+      languages?: string[]
+      baseLocation?: string
+      bio?: string
+      hourlyRate?: number | null
+    }) => updateGuideProfile(payload),
+    onSuccess: async () => {
       await queryClient.refetchQueries({ queryKey: ["guide", "profile"] })
       queryClient.invalidateQueries({ queryKey: ["user"] })
     },

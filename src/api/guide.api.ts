@@ -190,9 +190,16 @@ export function deleteAvailabilitySlot(slotId: string) {
   )
 }
 
-export function updateGuideProfile(formData: FormData) {
+export function updateGuideProfile(payload: {
+  licenseNumber?: string
+  yearsExperience?: number
+  languages?: string[]
+  baseLocation?: string
+  bio?: string
+  hourlyRate?: number | null
+}) {
   return apiClient<GuideApiResponse<GuideProfile>>("guide/profile/update", {
     method: "PATCH",
-    body: formData,
+    body: payload,      // ← JSON body
   })
 }
