@@ -187,12 +187,7 @@ export function useTouristDashboard() {
 
 
 
-export function useTouristProfile() {
-  return useQuery({
-    queryKey: ["tourist", "profile"],
-    queryFn: getTouristProfile,
-  })
-}
+
 
 
 
@@ -221,3 +216,12 @@ export function useUpdateTouristProfile() {
     },
   })
 }
+
+
+export function useTouristProfile() {
+  return useQuery({
+    queryKey: ["tourist", "profile"],
+    queryFn: getTouristProfile,
+  })
+}
+

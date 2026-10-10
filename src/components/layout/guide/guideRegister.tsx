@@ -48,37 +48,75 @@ export function GuideRegisterForm() {
       bio: "",
       hourlyRate: 0,
     },
-    onSubmit: ({ value }) => {
-      register(
-        {
-          name: value.name,
-          email: value.email,
-          password: value.password,
-          guide: {
-            licenseNumber: value.licenseNumber || undefined,
-            yearsExperience: value.yearsExperience || 0,
-            languages: selectedLanguages,
-            baseLocation: value.baseLocation || undefined,
-            bio: value.bio || undefined,
-            hourlyRate: value.hourlyRate || null,
-          },
-        },
-        {
-          onSuccess: (res: any) => {
-            toast.success("OTP sent to your email!", {
-              description: "Please check your email and verify.",
-            })
-           // router.push(`/register/verify-account?email=${res.email}`)
-           router.push(`/register/verify-account?email=${res.email}&role=GUIDE`)
-          },
-          onError: (err: any) => {
-            toast.error("Registration failed", {
-              description: err.message || "Something went wrong",
-            })
-          },
-        }
-      )
+//     onSubmit: ({ value }) => {
+//       register(
+//         {
+//           name: value.name,
+//           email: value.email,
+//           password: value.password,
+//           guide: {
+//             licenseNumber: value.licenseNumber || undefined,
+//             yearsExperience: value.yearsExperience || 0,
+//             languages: selectedLanguages,
+//             baseLocation: value.baseLocation || undefined,
+//             bio: value.bio || undefined,
+//             hourlyRate: value.hourlyRate || null,
+//           },
+//         },
+//         {
+//           onSuccess: (res: any) => {
+//             toast.success("OTP sent to your email!", {
+//               description: "Please check your email and verify.",
+//             })
+          
+//           const email = res.email || res.data?.email || res.data?.data?.email
+
+//   if (!email) {
+//     toast.error("Email not found in response")
+//     return
+//   }
+//  router.push(`/register/verify-account?email=${email}&role=GUIDE`)
+//           },
+//           onError: (err: any) => {
+//             toast.error("Registration failed", {
+//               description: err.message || "Something went wrong",
+//             })
+//           },
+//         }
+//       )
+//     }
+onSubmit: ({ value }) => {
+  register(
+    {
+      name: value.name,
+      email: value.email,
+      password: value.password,
+      guide: {
+        licenseNumber: value.licenseNumber || undefined,
+        yearsExperience: value.yearsExperience || 0,
+        languages: selectedLanguages,
+        baseLocation: value.baseLocation || undefined,
+        bio: value.bio || undefined,
+        hourlyRate: value.hourlyRate || null,
+      },
     },
+    {
+      onSuccess: () => {
+        toast.success("OTP sent to your email!", {
+          description: "Please check your email and verify.",
+        })
+        router.push(
+          `/register/verify-account?email=${value.email}&role=GUIDE`
+        )
+      },
+      onError: (err: any) => {
+        toast.error("Registration failed", {
+          description: err.message || "Something went wrong",
+        })
+      },
+    }
+  )
+},
   })
 
   const toggleLanguage = (lang: string) => {

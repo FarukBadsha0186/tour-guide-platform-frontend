@@ -281,14 +281,6 @@ export default function PackageDetailPage({ params }: PageProps) {
   <BookOpen className="mr-2 h-4 w-4" />
   Book Now
 </Button>
-
-                
-
-                {availableSlots.length === 0 && (
-                  <p className="text-xs text-muted-foreground text-center">
-                    No slots available
-                  </p>
-                )}
               </CardContent>
             </Card>
           </div>

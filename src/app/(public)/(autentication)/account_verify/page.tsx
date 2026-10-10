@@ -1,7 +1,7 @@
 import { Suspense } from "react"
 
 import { Spinner } from "@/components/ui/spinner"
-import VerifyotpForm from "@/components/layout/veryfyOtp/varifyOtp"
+import { VerifyOtpForm } from "@/components/layout/registration/verify-otp-form"
 
 export default function AccountVerifyPage() {
   return (
@@ -13,7 +13,7 @@ export default function AccountVerifyPage() {
           </div>
         }
       >
-        <VerifyotpForm />
+        <VerifyOtpForm />
       </Suspense>
     </div>
   )

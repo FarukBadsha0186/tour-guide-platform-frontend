@@ -323,3 +323,31 @@ export interface InitializePaymentResponse {
     transactionStatus: string
   }
 }
+
+
+export interface TouristUser {
+  id: string
+  name: string
+  email: string
+  imageUrl: string
+}
+
+export interface TouristProfile {
+  id: string
+  name: string | null
+  email: string | null
+  userId: string
+  contactNumber: string
+  address: string
+  nationality: string
+  dateOfBirth: string | null
+  user: TouristUser
+}
+
+export interface UpdateTouristProfilePayload {
+  name?: string
+  contactNumber?: string
+  address?: string
+  nationality?: string
+  dateOfBirth?: string
+}

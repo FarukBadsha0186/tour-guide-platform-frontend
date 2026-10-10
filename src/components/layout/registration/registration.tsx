@@ -42,32 +42,70 @@ export default function RegistrationForm() {
     validators: {
       onSubmit: touristRegistrationSchema,
     },
-    onSubmit: ({ value }) => {
+//     onSubmit: ({ value }) => {
 
-       const registrationData = {
-        name: value.name,
-        email: value.email,
-        password: value.password,
-      };
+//        const registrationData = {
+//         name: value.name,
+//         email: value.email,
+//         password: value.password,
+//       };
 
 
-    register(registrationData, {
-        onSuccess: (res: any) => {
-          toast.success("Account created!", {
-            description: "Please login to continue",
-          })
+//     register(registrationData, {
+//         // onSuccess: (res: any) => {
+//         //   toast.success("Account created!", {
+//         //     description: "Please login to continue",
+//         //   })
         
-          const params = new URLSearchParams({ email: registrationData.email });
-         // router.push(`/register/verify-account?${params.toString()}`)
-         router.push(`/register/verify-account?email=${res.email}&role=TOURIST`)
-        },
-        onError: (err) => {
-          toast.error("Registration failed", {
-            description: err.message || "Something went wrong",
-          })
-        },
-      })
+//         //   const params = new URLSearchParams({ email: registrationData.email });
+         
+//         //  router.push(`/register/verify-account?email=${res.email}&role=TOURIST`)
+//         // }
+//         onSuccess: (res: any) => {
+//   const email = res.email || res.data?.email || res.data?.data?.email
+
+//   if (!email) {
+//     toast.error("Email not found in response")
+//     return
+//   }
+
+//   toast.success("Account created!", {
+//     description: "Please check your email and verify.",
+//   })
+
+//   router.push(`/register/verify-account?email=${email}&role=TOURIST`)
+// },
+//         onError: (err) => {
+//           toast.error("Registration failed", {
+//             description: err.message || "Something went wrong",
+//           })
+//         },
+//       })
+//     },
+onSubmit: ({ value }) => {
+  register(
+    {
+      name: value.name,
+      email: value.email,
+      password: value.password,
     },
+    {
+      onSuccess: () => {
+        toast.success("Account created!", {
+          description: "Please check your email and verify.",
+        })
+        router.push(
+          `/register/verify-account?email=${value.email}&role=TOURIST`
+        )
+      },
+      onError: (err: any) => {
+        toast.error("Registration failed", {
+          description: err.message || "Something went wrong",
+        })
+      },
+    }
+  )
+}
   })
 
   return (
