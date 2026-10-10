@@ -163,41 +163,5 @@ PENDING_PAYMENT ──(payment success)──→ CONFIRMED
 | **Date Utility** | date-fns |
 | **Linting** | Biome |
 
----
 
-## 📂 Project Structure
-src/
-├── app/
-│ ├── (public)/ # Public routes
-│ │ ├── (authentication)/ # Login, Register, OTP
-│ │ └── (marketing)/ # Home, Packages, Guides, About
-│ ├── (dashboard)/ # Protected routes
-│ │ ├── admin/ # Admin panel
-│ │ ├── guide/ # Guide panel
-│ │ └── tourist/ # Tourist panel
-│ ├── payment-success/ # Payment callback success
-│ ├── payment-failed/ # Payment callback failure
-│ ├── layout.tsx # Root layout
-│ └── globals.css
-│
-├── components/
-│ ├── ui/ # shadcn/ui primitives
-│ ├── auth/ # AuthGuard, RoleGuard
-│ ├── dashboard/ # Sidebar, Shell
-│ ├── layout/ # Header, Footer, Layouts
-│ └── modules/
-│ ├── admin/ # Admin feature components
-│ ├── guide/ # Guide feature components
-│ ├── tourist/ # Tourist feature components
-│ └── public/ # Public feature components
-│
-├── hooks/ # TanStack Query hooks
-├── api/ # API layer functions
-├── types/ # TypeScript types
-├── validation/ # Zod schemas
-├── routes/ # Sidebar route configs
-├── constants/ # App constants
-├── providers/ # React context providers
-└── lib/
-├── apiClient.ts # ofetch instance
-└── utils.ts # cn() helper
+
