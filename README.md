@@ -68,8 +68,10 @@ A modern, full-featured tour booking platform built with **Next.js 16 (App Route
 Understanding how roles interact is key to this platform. Here's the end-to-end journey:
 ┌─────────────────────────────────────────────────────────────┐
 │ STEP 1: Guide Registers (with license, experience, bio) │
+
 │ ↓ │
 │ STEP 2: Admin Approves Guide (profile must be complete) │
+
 │ ↓ │
 │ STEP 3: Guide Creates Tour Package │
 │ ↓ │
