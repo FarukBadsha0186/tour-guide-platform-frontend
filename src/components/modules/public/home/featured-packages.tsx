@@ -9,7 +9,7 @@ import { ArrowRight } from "lucide-react"
 
 export function FeaturedPackages() {
   const { data, isLoading } = useSearchPublicPackages({
-    limit: 6,
+    limit: 3,
     sortBy: "createdAt",
     sortOrder: "desc",
   })

@@ -140,7 +140,7 @@ export function AppSidebar({ role }: { role: UserRole }) {
         </SidebarHeader>
       </Link>
 
-      <SidebarContent>
+      {/* <SidebarContent>
         {routes.map((group) => (
           <SidebarGroup key={group.title}>
             <SidebarGroupLabel>{group.title}</SidebarGroupLabel>
@@ -160,7 +160,25 @@ export function AppSidebar({ role }: { role: UserRole }) {
             </SidebarGroupContent>
           </SidebarGroup>
         ))}
-      </SidebarContent>
+      </SidebarContent> */}
+      <SidebarContent>
+  <SidebarGroup>
+    <SidebarGroupContent>
+      <SidebarMenu>
+        {routes.map((item) => (
+          <SidebarMenuItem key={item.title}>
+            <SidebarMenuButton
+              render={<Link href={item.url} />}
+              isActive={pathname === item.url}
+            >
+              {item.title}
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        ))}
+      </SidebarMenu>
+    </SidebarGroupContent>
+  </SidebarGroup>
+</SidebarContent>
 
       {/* Logout button — সব role এ */}
       <SidebarFooter>

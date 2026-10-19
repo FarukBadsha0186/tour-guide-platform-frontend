@@ -26,17 +26,19 @@ function PaymentFailedContent() {
   }, [reason])
 
   return (
-    <div className="flex min-h-svh items-center justify-center p-6 bg-gradient-to-br from-red-50 to-orange-50">
-      <Card className="w-full max-w-md">
+    // ✅ Hardcoded red/orange gradient er bodole destructive theme
+    <div className="flex min-h-svh items-center justify-center p-6 bg-gradient-to-br from-destructive/10 via-background to-background">
+      <Card className="w-full max-w-md border-border shadow-lg">
         <CardContent className="pt-10 pb-8 text-center space-y-6">
           <div className="flex justify-center">
-            <div className="rounded-full bg-red-100 p-4">
-              <XCircle className="h-16 w-16 text-red-600" />
+            {/* ✅ Hardcoded red er bodole destructive use kora hoyeche */}
+            <div className="rounded-full bg-destructive/10 p-4">
+              <XCircle className="h-16 w-16 text-destructive" />
             </div>
           </div>
 
           <div className="space-y-2">
-            <h1 className="text-2xl font-bold tracking-tight">
+            <h1 className="text-2xl font-bold tracking-tight text-foreground">
               Payment Failed
             </h1>
             <p className="text-muted-foreground">
@@ -60,7 +62,7 @@ function PaymentFailedContent() {
               Try Again
             </Button>
             <Link href="/">
-              <Button variant="outline" className="w-full">
+              <Button variant="outline" className="w-full border-border hover:bg-muted">
                 <Home className="mr-2 h-4 w-4" />
                 Back to Home
               </Button>
@@ -76,7 +78,7 @@ export default function PaymentFailedPage() {
   return (
     <Suspense
       fallback={
-        <div className="flex min-h-svh items-center justify-center">
+        <div className="flex min-h-svh items-center justify-center bg-background">
           <Spinner className="h-8 w-8" />
         </div>
       }

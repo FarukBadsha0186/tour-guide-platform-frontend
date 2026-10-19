@@ -48,75 +48,108 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* ============================================
+   LIGHT MODE - Premium Warm Cream
+   ============================================ */
 :root {
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.148 0.004 228.8);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.148 0.004 228.8);
-  --primary: oklch(0.5 0.134 242.749);
-  --primary-foreground: oklch(0.977 0.013 236.62);
-  --secondary: oklch(0.967 0.001 286.375);
-  --secondary-foreground: oklch(0.21 0.006 285.885);
-  --muted: oklch(0.963 0.002 197.1);
-  --muted-foreground: oklch(0.56 0.021 213.5);
-  --accent: oklch(0.963 0.002 197.1);
-  --accent-foreground: oklch(0.218 0.008 223.9);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.925 0.005 214.3);
-  --input: oklch(0.925 0.005 214.3);
-  --ring: oklch(0.723 0.014 214.4);
-  --chart-1: oklch(0.872 0.007 219.6);
-  --chart-2: oklch(0.56 0.021 213.5);
-  --chart-3: oklch(0.45 0.017 213.2);
-  --chart-4: oklch(0.378 0.015 216);
-  --chart-5: oklch(0.275 0.011 216.9);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.987 0.002 197.1);
-  --sidebar-foreground: oklch(0.148 0.004 228.8);
-  --sidebar-primary: oklch(0.588 0.158 241.966);
-  --sidebar-primary-foreground: oklch(0.977 0.013 236.62);
-  --sidebar-accent: oklch(0.963 0.002 197.1);
-  --sidebar-accent-foreground: oklch(0.218 0.008 223.9);
-  --sidebar-border: oklch(0.925 0.005 214.3);
-  --sidebar-ring: oklch(0.723 0.014 214.4);
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.148 0.004 228.8);
+  /* ===== NEUTRAL - Warm Premium ===== */
+  --background: oklch(0.982 0.008 85);          /* Warm cream */
+  --foreground: oklch(0.18 0.008 60);           /* Deep charcoal brown */
+  --card: oklch(0.995 0.005 85);                /* Off-white warm */
+  --card-foreground: oklch(0.18 0.008 60);
+  --popover: oklch(0.995 0.005 85);
+  --popover-foreground: oklch(0.18 0.008 60);
+  --muted: oklch(0.94 0.015 85);                /* Warm beige */
+  --muted-foreground: oklch(0.52 0.015 70);     /* Warm gray */
+  --border: oklch(0.9 0.018 85);                /* Warm border */
+  --input: oklch(0.9 0.018 85);
+  --ring: oklch(0.42 0.09 155);                 /* Primary tint */
+  --destructive: oklch(0.55 0.2 25);
+
+  /* ===== 🟢 COLOR 1: PRIMARY - Deep Forest Emerald ===== */
+  --primary: oklch(0.42 0.09 155);              /* Deep forest green */
+  --primary-foreground: oklch(0.98 0.01 85);    /* Cream */
+
+  /* ===== 🟠 COLOR 2: SECONDARY - Warm Terracotta ===== */
+  --secondary: oklch(0.58 0.14 45);             /* Terracotta */
+  --secondary-foreground: oklch(0.98 0.01 85);  /* Cream */
+
+  /* ===== 🔵 COLOR 3: ACCENT - Deep Ocean Navy ===== */
+  --accent: oklch(0.35 0.06 245);               /* Deep ocean navy */
+  --accent-foreground: oklch(0.98 0.01 85);     /* Cream */
+
+  /* ===== RADIUS ===== */
+  --radius: 0.75rem;
+
+  /* ===== SIDEBAR ===== */
+  --sidebar: oklch(0.97 0.01 85);
+  --sidebar-foreground: oklch(0.18 0.008 60);
+  --sidebar-primary: oklch(0.42 0.09 155);
+  --sidebar-primary-foreground: oklch(0.98 0.01 85);
+  --sidebar-accent: oklch(0.94 0.015 85);
+  --sidebar-accent-foreground: oklch(0.18 0.008 60);
+  --sidebar-border: oklch(0.9 0.018 85);
+  --sidebar-ring: oklch(0.42 0.09 155);
+
+  /* ===== CHARTS ===== */
+  --chart-1: oklch(0.42 0.09 155);              /* Forest green */
+  --chart-2: oklch(0.58 0.14 45);               /* Terracotta */
+  --chart-3: oklch(0.35 0.06 245);              /* Ocean navy */
+  --chart-4: oklch(0.72 0.12 85);               /* Warm gold */
+  --chart-5: oklch(0.6 0.08 200);               /* Teal */
 }
 
+/* ============================================
+   DARK MODE - Premium Warm Dark
+   ============================================ */
 .dark {
-  --background: oklch(0.148 0.004 228.8);
-  --foreground: oklch(0.987 0.002 197.1);
-  --card: oklch(0.218 0.008 223.9);
-  --card-foreground: oklch(0.987 0.002 197.1);
-  --popover: oklch(0.218 0.008 223.9);
-  --popover-foreground: oklch(0.987 0.002 197.1);
-  --primary: oklch(0.443 0.11 240.79);
-  --primary-foreground: oklch(0.977 0.013 236.62);
-  --secondary: oklch(0.274 0.006 286.033);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.275 0.011 216.9);
-  --muted-foreground: oklch(0.723 0.014 214.4);
-  --accent: oklch(0.275 0.011 216.9);
-  --accent-foreground: oklch(0.987 0.002 197.1);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.56 0.021 213.5);
-  --chart-1: oklch(0.872 0.007 219.6);
-  --chart-2: oklch(0.56 0.021 213.5);
-  --chart-3: oklch(0.45 0.017 213.2);
-  --chart-4: oklch(0.378 0.015 216);
-  --chart-5: oklch(0.275 0.011 216.9);
-  --sidebar: oklch(0.218 0.008 223.9);
-  --sidebar-foreground: oklch(0.987 0.002 197.1);
-  --sidebar-primary: oklch(0.685 0.169 237.323);
-  --sidebar-primary-foreground: oklch(0.293 0.066 243.157);
-  --sidebar-accent: oklch(0.275 0.011 216.9);
-  --sidebar-accent-foreground: oklch(0.987 0.002 197.1);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.56 0.021 213.5);
+  /* ===== NEUTRAL - Warm Dark ===== */
+  --background: oklch(0.14 0.008 60);           /* Warm charcoal */
+  --foreground: oklch(0.94 0.015 85);           /* Warm cream */
+  --card: oklch(0.19 0.01 60);                  /* Lighter warm dark */
+  --card-foreground: oklch(0.94 0.015 85);
+  --popover: oklch(0.19 0.01 60);
+  --popover-foreground: oklch(0.94 0.015 85);
+  --muted: oklch(0.25 0.012 60);                /* Dark muted */
+  --muted-foreground: oklch(0.7 0.015 85);      /* Light warm gray */
+  --border: oklch(0.3 0.012 60);                /* Subtle border */
+  --input: oklch(0.3 0.012 60);
+  --ring: oklch(0.65 0.11 155);                 /* Brighter primary */
+  --destructive: oklch(0.65 0.19 25);
+
+  /* ===== 🟢 COLOR 1: PRIMARY - Bright Forest Emerald ===== */
+  --primary: oklch(0.68 0.12 155);              /* Brighter emerald */
+  --primary-foreground: oklch(0.14 0.008 60);   /* Dark charcoal */
+
+  /* ===== 🟠 COLOR 2: SECONDARY - Warm Terracotta ===== */
+  --secondary: oklch(0.68 0.14 45);             /* Brighter terracotta */
+  --secondary-foreground: oklch(0.14 0.008 60);
+
+  /* ===== 🔵 COLOR 3: ACCENT - Ocean Blue ===== */
+  --accent: oklch(0.68 0.1 245);                /* Brighter ocean */
+  --accent-foreground: oklch(0.14 0.008 60);
+
+  /* ===== SIDEBAR ===== */
+  --sidebar: oklch(0.19 0.01 60);
+  --sidebar-foreground: oklch(0.94 0.015 85);
+  --sidebar-primary: oklch(0.68 0.12 155);
+  --sidebar-primary-foreground: oklch(0.14 0.008 60);
+  --sidebar-accent: oklch(0.25 0.012 60);
+  --sidebar-accent-foreground: oklch(0.94 0.015 85);
+  --sidebar-border: oklch(0.3 0.012 60);
+  --sidebar-ring: oklch(0.68 0.12 155);
+
+  /* ===== CHARTS ===== */
+  --chart-1: oklch(0.68 0.12 155);              /* Forest green */
+  --chart-2: oklch(0.68 0.14 45);               /* Terracotta */
+  --chart-3: oklch(0.68 0.1 245);               /* Ocean blue */
+  --chart-4: oklch(0.78 0.13 85);               /* Warm gold */
+  --chart-5: oklch(0.7 0.1 200);                /* Teal */
 }
 
+/* ============================================
+   BASE STYLES
+   ============================================ */
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -124,7 +157,8 @@
   body {
     @apply bg-background text-foreground;
   }
-  button:not(:disabled), [role="button"]:not(:disabled) {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
     cursor: pointer;
   }
   html {

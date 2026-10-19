@@ -1,4 +1,5 @@
 
+import { TouristChatWidget } from "@/components/ai/tourist-chat-widget";
 import Footer from "@/components/layout/public/footer";
 import Header from "@/components/layout/public/header";
 import { ReactNode } from "react";
@@ -11,6 +12,7 @@ export default function layput({children}:{children: ReactNode}) {
          <Header/>
          <main className="flex-1">{children}</main>
          <Footer/>
+         <TouristChatWidget /> 
       </div>
       
         

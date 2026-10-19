@@ -11,8 +11,8 @@ export default function HomePage() {
     <div>
       <Hero />
       <FeaturedPackages />
-      <WhyChooseUs />
       <FeaturedGuides />
+      <WhyChooseUs />
       <CTASection />
     </div>
   )

@@ -1,26 +1,4 @@
 
-// "use client"
-// import VerifyotpForm from "@/components/layout/veryfyOtp/varifyOtp";
-// import { Suspense } from "react";
-
-// export default function VerifyAccount() {
-
-    
-//     return (
-
-//        <div>
-//         <Suspense fallback ={<p>Loading .....</p>}>
-//              <VerifyotpForm></VerifyotpForm>
-//         </Suspense>
-       
-//        </div>
-
-      
-//     )
-    
-// }
-
-
 import { Suspense } from "react"
 import { Spinner } from "@/components/ui/spinner"
 import { VerifyOtpForm } from "@/components/layout/registration/verify-otp-form"

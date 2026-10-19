@@ -960,9 +960,259 @@
 
 
 
+// "use client"
+
+// import { useState } from "react"
+// import { useForm } from "@tanstack/react-form"
+// import { toast } from "sonner"
+// import { Button } from "@/components/ui/button"
+// import { Input } from "@/components/ui/input"
+// import {
+//   Field,
+//   FieldError,
+//   FieldGroup,
+//   FieldLabel,
+//   FieldDescription,
+// } from "@/components/ui/field"
+// import { Textarea } from "@/components/ui/textarea"
+// import { Badge } from "@/components/ui/badge"
+// import { Spinner } from "@/components/ui/spinner"
+// import { X } from "lucide-react"
+// import { useUpdateGuideProfile } from "@/hooks"
+// import { LANGUAGE_OPTIONS } from "@/constants/guide.constants"
+// import type { GuideProfile } from "@/types/guide.type"
+
+// interface ProfileFormProps {
+//   profile: GuideProfile
+//   onCancel: () => void
+//   onSuccess: () => void
+// }
+
+// export function ProfileForm({
+//   profile,
+//   onCancel,
+//   onSuccess,
+// }: ProfileFormProps) {
+//   const [selectedLanguages, setSelectedLanguages] = useState<string[]>(
+//     profile.languages || []
+//   )
+
+//   const { mutate: update, isPending } = useUpdateGuideProfile()
+
+//   const form = useForm({
+//     defaultValues: {
+//       licenseNumber: profile.licenseNumber || "",
+//       yearsExperience: profile.yearsExperience || 0,
+//       baseLocation: profile.baseLocation || "",
+//       bio: profile.bio || "",
+//       hourlyRate: profile.hourlyRate || 0,
+//     },
+//     onSubmit: ({ value }) => {
+//       update(
+//         {
+//           licenseNumber: value.licenseNumber,
+//           yearsExperience: Number(value.yearsExperience),
+//           languages: selectedLanguages,
+//           baseLocation: value.baseLocation,
+//           bio: value.bio,
+//           hourlyRate: value.hourlyRate ? Number(value.hourlyRate) : null,
+//         },
+//         {
+//           onSuccess: () => {
+//             toast.success("Profile updated successfully")
+//             onSuccess()
+//           },
+//           onError: (err: any) => {
+//             toast.error("Update failed", {
+//               description: err.message || "Something went wrong",
+//             })
+//           },
+//         }
+//       )
+//     },
+//   })
+
+//   const toggleLanguage = (lang: string) => {
+//     setSelectedLanguages((prev) =>
+//       prev.includes(lang)
+//         ? prev.filter((l) => l !== lang)
+//         : [...prev, lang]
+//     )
+//   }
+
+//   return (
+//     <form
+//       onSubmit={(e) => {
+//         e.preventDefault()
+//         form.handleSubmit()
+//       }}
+//     >
+//       <FieldGroup className="gap-5">
+//         {/* License Number */}
+//         <form.Field name="licenseNumber">
+//           {(field) => {
+//             const isInvalid =
+//               field.state.meta.isTouched && !field.state.meta.isValid
+//             return (
+//               <Field data-invalid={isInvalid} className="gap-2">
+//                 <FieldLabel htmlFor={field.name}>License Number</FieldLabel>
+//                 <Input
+//                   id={field.name}
+//                   name={field.name}
+//                   value={field.state.value}
+//                   onChange={(e) => field.handleChange(e.target.value)}
+//                   onBlur={field.handleBlur}
+//                   placeholder="GUIDE-2024-001"
+//                   aria-invalid={isInvalid}
+//                 />
+//                 {isInvalid && (
+//                   <FieldError errors={field.state.meta.errors} />
+//                 )}
+//               </Field>
+//             )
+//           }}
+//         </form.Field>
+
+//         {/* Years of Experience */}
+//         <form.Field name="yearsExperience">
+//           {(field) => (
+//             <Field className="gap-2">
+//               <FieldLabel htmlFor={field.name}>
+//                 Years of Experience
+//               </FieldLabel>
+//               <Input
+//                 id={field.name}
+//                 name={field.name}
+//                 type="number"
+//                 min={0}
+//                 value={field.state.value}
+//                 onChange={(e) =>
+//                   field.handleChange(Number(e.target.value))
+//                 }
+//                 onBlur={field.handleBlur}
+//               />
+//             </Field>
+//           )}
+//         </form.Field>
+
+//         {/* Base Location */}
+//         <form.Field name="baseLocation">
+//           {(field) => (
+//             <Field className="gap-2">
+//               <FieldLabel htmlFor={field.name}>Base Location</FieldLabel>
+//               <Input
+//                 id={field.name}
+//                 name={field.name}
+//                 value={field.state.value}
+//                 onChange={(e) => field.handleChange(e.target.value)}
+//                 onBlur={field.handleBlur}
+//                 placeholder="Dhaka"
+//               />
+//             </Field>
+//           )}
+//         </form.Field>
+
+//         {/* Hourly Rate */}
+//         <form.Field name="hourlyRate">
+//           {(field) => (
+//             <Field className="gap-2">
+//               <FieldLabel htmlFor={field.name}>Hourly Rate (৳)</FieldLabel>
+//               <Input
+//                 id={field.name}
+//                 name={field.name}
+//                 type="number"
+//                 min={0}
+//                 value={field.state.value}
+//                 onChange={(e) =>
+//                   field.handleChange(Number(e.target.value))
+//                 }
+//                 onBlur={field.handleBlur}
+//               />
+//             </Field>
+//           )}
+//         </form.Field>
+
+//         {/* Languages */}
+//         <Field className="gap-2">
+//           <FieldLabel>Languages</FieldLabel>
+//           <FieldDescription>
+//             Select all languages you can communicate in
+//           </FieldDescription>
+
+//           {selectedLanguages.length > 0 && (
+//             <div className="flex flex-wrap gap-2 mb-2">
+//               {selectedLanguages.map((lang) => (
+//                 <Badge
+//                   key={lang}
+//                   variant="secondary"
+//                   className="gap-1 pr-1 cursor-pointer"
+//                   onClick={() => toggleLanguage(lang)}
+//                 >
+//                   {lang}
+//                   <X className="h-3 w-3" />
+//                 </Badge>
+//               ))}
+//             </div>
+//           )}
+
+//           <div className="flex flex-wrap gap-2">
+//             {LANGUAGE_OPTIONS.filter(
+//               (l) => !selectedLanguages.includes(l)
+//             ).map((lang) => (
+//               <Badge
+//                 key={lang}
+//                 variant="outline"
+//                 className="cursor-pointer hover:bg-muted"
+//                 onClick={() => toggleLanguage(lang)}
+//               >
+//                 + {lang}
+//               </Badge>
+//             ))}
+//           </div>
+//         </Field>
+
+//         {/* Bio */}
+//         <form.Field name="bio">
+//           {(field) => (
+//             <Field className="gap-2">
+//               <FieldLabel htmlFor={field.name}>Bio</FieldLabel>
+//               <Textarea
+//                 id={field.name}
+//                 name={field.name}
+//                 value={field.state.value}
+//                 onChange={(e) => field.handleChange(e.target.value)}
+//                 onBlur={field.handleBlur}
+//                 placeholder="Tell tourists about yourself..."
+//                 rows={5}
+//               />
+//             </Field>
+//           )}
+//         </form.Field>
+
+//         {/* Actions */}
+//         <div className="flex justify-end gap-3 pt-2">
+//           <Button
+//             type="button"
+//             variant="outline"
+//             onClick={onCancel}
+//             disabled={isPending}
+//           >
+//             Cancel
+//           </Button>
+//           <Button type="submit" disabled={isPending}>
+//             {isPending && <Spinner className="mr-2 h-4 w-4" />}
+//             Save Changes
+//           </Button>
+//         </div>
+//       </FieldGroup>
+//     </form>
+//   )
+// }
+
+
 "use client"
 
-import { useState } from "react"
+import { useRef, useState, useEffect } from "react"
 import { useForm } from "@tanstack/react-form"
 import { toast } from "sonner"
 import { Button } from "@/components/ui/button"
@@ -977,7 +1227,8 @@ import {
 import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
 import { Spinner } from "@/components/ui/spinner"
-import { X } from "lucide-react"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { X, Camera } from "lucide-react"
 import { useUpdateGuideProfile } from "@/hooks"
 import { LANGUAGE_OPTIONS } from "@/constants/guide.constants"
 import type { GuideProfile } from "@/types/guide.type"
@@ -996,8 +1247,35 @@ export function ProfileForm({
   const [selectedLanguages, setSelectedLanguages] = useState<string[]>(
     profile.languages || []
   )
+  
+  // ===== IMAGE STATE =====
+  const [selectedFile, setSelectedFile] = useState<File | null>(null)
+  const [previewUrl, setPreviewUrl] = useState<string | null>(
+    profile.user?.imageUrl || null
+  )
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const { mutate: update, isPending } = useUpdateGuideProfile()
+
+  // Cleanup object URL to prevent memory leaks
+  useEffect(() => {
+    return () => {
+      if (previewUrl && previewUrl.startsWith("blob:")) {
+        URL.revokeObjectURL(previewUrl)
+      }
+    }
+  }, [previewUrl])
+
+  // Handle file selection
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      setSelectedFile(file)
+      // Create local preview URL
+      const objectUrl = URL.createObjectURL(file)
+      setPreviewUrl(objectUrl)
+    }
+  }
 
   const form = useForm({
     defaultValues: {
@@ -1008,27 +1286,37 @@ export function ProfileForm({
       hourlyRate: profile.hourlyRate || 0,
     },
     onSubmit: ({ value }) => {
-      update(
-        {
-          licenseNumber: value.licenseNumber,
-          yearsExperience: Number(value.yearsExperience),
-          languages: selectedLanguages,
-          baseLocation: value.baseLocation,
-          bio: value.bio,
-          hourlyRate: value.hourlyRate ? Number(value.hourlyRate) : null,
+      // ✅ Create FormData for file upload
+      const formData = new FormData()
+
+      // 1. Append Guide Data as JSON string (Backend expects this)
+      const guideData = {
+        licenseNumber: value.licenseNumber,
+        yearsExperience: Number(value.yearsExperience),
+        languages: selectedLanguages,
+        baseLocation: value.baseLocation,
+        bio: value.bio,
+        hourlyRate: value.hourlyRate ? Number(value.hourlyRate) : null,
+      }
+      formData.append("guideData", JSON.stringify(guideData))
+
+      // 2. Append Image File (if selected)
+      if (selectedFile) {
+        formData.append("profileImage", selectedFile)
+      }
+
+      // 3. Send to backend (Casting as any to bypass strict types if hook expects JSON)
+      update(formData as any, {
+        onSuccess: () => {
+          toast.success("Profile updated successfully")
+          onSuccess()
         },
-        {
-          onSuccess: () => {
-            toast.success("Profile updated successfully")
-            onSuccess()
-          },
-          onError: (err: any) => {
-            toast.error("Update failed", {
-              description: err.message || "Something went wrong",
-            })
-          },
-        }
-      )
+        onError: (err: any) => {
+          toast.error("Update failed", {
+            description: err.message || "Something went wrong",
+          })
+        },
+      })
     },
   })
 
@@ -1048,6 +1336,39 @@ export function ProfileForm({
       }}
     >
       <FieldGroup className="gap-5">
+        {/* ===== PROFILE IMAGE UPLOAD ===== */}
+        <div className="flex flex-col items-center gap-3 mb-2">
+          <div className="relative group">
+            <Avatar className="h-24 w-24 border-2 border-border shadow-sm">
+              <AvatarImage src={previewUrl || ""} alt="Profile" className="object-cover" />
+              <AvatarFallback className="text-2xl bg-primary/10 text-primary">
+                {profile.user?.name?.charAt(0)?.toUpperCase() || "G"}
+              </AvatarFallback>
+            </Avatar>
+            
+            {/* Overlay button for camera */}
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              className="absolute inset-0 flex items-center justify-center rounded-full bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+              aria-label="Upload profile image"
+            >
+              <Camera className="h-6 w-6 text-white" />
+            </button>
+          </div>
+          
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleFileChange}
+            accept="image/*"
+            className="hidden"
+          />
+          <p className="text-xs text-muted-foreground">
+            Click the image to upload a new profile picture
+          </p>
+        </div>
+
         {/* License Number */}
         <form.Field name="licenseNumber">
           {(field) => {
