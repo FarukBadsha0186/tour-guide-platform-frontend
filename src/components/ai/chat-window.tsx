@@ -101,38 +101,101 @@ useEffect(() => {
   }
 
   return (
-    <div
-      className={cn(
-        "flex flex-col h-full bg-card border border-border rounded-2xl shadow-2xl overflow-hidden",
-        className
-      )}
-    >
-      {/* ===== HEADER ===== */}
-      <div className="flex items-center justify-between p-4 border-b border-border bg-muted/30 shrink-0">
-        <div className="flex items-center gap-2">
-          <div className="flex size-9 items-center justify-center rounded-full bg-primary/10">
-            <Bot className="size-5 text-primary" />
-          </div>
-          <div>
-            <p className="text-sm font-semibold text-foreground">{title}</p>
-            <p className="text-xs text-muted-foreground truncate max-w-[200px]">
-              {subtitle}
-            </p>
-          </div>
+//     <div
+//       className={cn(
+//         "flex flex-col h-full bg-card border border-border rounded-2xl shadow-2xl overflow-hidden",
+//         className
+//       )}
+//     >
+//       {/* ===== HEADER ===== */}
+//       <div className="flex items-center justify-between p-4 border-b border-border bg-muted/30 shrink-0">
+//         {/* <div className="flex items-center gap-2">
+//           <div className="flex size-9 items-center justify-center rounded-full bg-primary/10">
+//             <Bot className="size-5 text-primary" />
+//           </div>
+//           <div>
+//             <p className="text-sm font-semibold text-foreground">{title}</p>
+//             <p className="text-xs text-muted-foreground truncate max-w-[200px]">
+//               {subtitle}
+//             </p>
+//           </div>
+//         </div>
+//         {onClose && (
+//           // <Button
+//           //   type="button"
+//           //   variant="ghost"
+//           //   size="icon"
+//           //   onClick={onClose}
+//           //   className="size-8 rounded-full"
+//           //   aria-label="Close chat"
+//           // >
+//           //   <X className="size-4" />
+//           // </Button>
+//           <button className="bg-muted text-foreground">
+//   <X className="size-4" strokeWidth={2.5} />
+// </button>
+
+//         )} */}
+
+<div
+    className={cn(
+      "flex flex-col h-full bg-card border border-border rounded-2xl shadow-2xl overflow-hidden",
+      className
+    )}
+  >
+    {/* ===== HEADER ===== */}
+    <div className="flex items-center justify-between gap-2 border-b border-border bg-muted/30 p-4 shrink-0">
+      <div className="flex items-center gap-2 min-w-0">
+        <div className="flex size-9 items-center justify-center rounded-full bg-primary/10 shrink-0">
+          <Bot className="size-5 text-primary" />
         </div>
-        {onClose && (
-          <Button
-            type="button"
-            variant="ghost"
-            size="icon"
-            onClick={onClose}
-            className="size-8 rounded-full"
-            aria-label="Close chat"
-          >
-            <X className="size-4" />
-          </Button>
-        )}
+        <div className="min-w-0">
+          <p className="text-sm font-semibold text-foreground truncate">{title}</p>
+          <p className="text-xs text-muted-foreground truncate max-w-[200px]">
+            {subtitle}
+          </p>
+        </div>
       </div>
+
+      {onClose && (
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close chat"
+          className="flex size-8 shrink-0 items-center justify-center rounded-full bg-destructive/10 text-destructive hover:bg-destructive/20 transition-colors"
+        >
+          <X className="size-4" strokeWidth={2.5} />
+        </button>
+      )}
+    </div>
+        {/* ===== HEADER ===== */}
+<div className="flex items-center justify-between gap-2 p-4 border-b border-border bg-muted/30 shrink-0">
+  <div className="flex items-center gap-2 min-w-0">
+    <div className="flex size-9 items-center justify-center rounded-full bg-primary/10 shrink-0">
+      <Bot className="size-5 text-primary" />
+    </div>
+    <div className="min-w-0">
+      <p className="text-sm font-semibold text-foreground truncate">{title}</p>
+      <p className="text-xs text-muted-foreground truncate max-w-[200px]">
+        {subtitle}
+      </p>
+    </div>
+  </div>
+
+  {/* ✅ FIXED X Button - Explicit visibility */}
+  {onClose && (
+    <button
+      type="button"
+      onClick={onClose}
+      aria-label="Close chat"
+      className="flex size-8 shrink-0 items-center justify-center rounded-full bg-muted text-foreground hover:bg-muted-foreground/20 transition-colors"
+    >
+      <X className="size-4" strokeWidth={2.5} />
+    </button>
+  )}
+</div>
+
+
 
       {/* ===== MESSAGES ===== */}
       <div

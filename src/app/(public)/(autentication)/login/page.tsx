@@ -1,5 +1,4 @@
-
-
+"use client"
 import LoginForm from "@/components/layout/login/loginform"
 import Link from "next/link"
 import { Compass } from "lucide-react"

@@ -38,3 +38,25 @@ export function getPublicGuides(params?: GuideListParams) {
     query: params,
   })
 }
+
+export function getGuideReviews(
+  guideId: string,
+  params?: { page?: number; limit?: number }
+) {
+  const qs = new URLSearchParams()
+  if (params?.page) qs.append("page", params.page.toString())
+  if (params?.limit) qs.append("limit", params.limit.toString())
+  return apiClient(`public/reviews/guide/${guideId}?${qs.toString()}`)
+}
+
+// src/api/public.api.ts (add at the end)
+
+export function getPackageReviews(
+  packageId: string,
+  params?: { page?: number; limit?: number }
+) {
+  const qs = new URLSearchParams()
+  if (params?.page) qs.append("page", params.page.toString())
+  if (params?.limit) qs.append("limit", params.limit.toString())
+  return apiClient(`public/reviews/package/${packageId}?${qs.toString()}`)
+}
